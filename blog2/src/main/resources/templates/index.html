@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tnut's Blog</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark" th:replace="layout/header :: header">
+
+</nav>
+<br>
+
+<div class="container">
+    <tr th:each="board : ${boards}">
+        <div class="card m-2">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <td th:text="${board.title}"></td>
+                </h4>
+                <a class="btn btn-primary" th:href="@{'/board/' +${board.id}}">내용보기</a>
+            </div>
+        </div>
+    </tr>
+</div>
+
+<ul class="pagination justify-content-center">
+    <th:block th:if="${boards.first}">
+        <li class="page-item disabled"><a class="page-link" th:href="@{/(page=${boards.number}-1)}">이전 페이지</a></li>
+    </th:block>
+    <th:block th:unless="${boards.first}">
+        <li class="page-item"><a class="page-link" th:href="@{/(page=${boards.number}-1)}">이전 페이지</a></li>
+    </th:block>
+
+    <th:block th:if="${boards.last}">
+        <li class="page-item disabled"><a class="page-link" th:href="@{/(page=${boards.number}+1)}">다음 페이지</a></li>
+    </th:block>
+    <th:block th:unless="${boards.last}">
+        <li class="page-item"><a class="page-link" th:href="@{/(page=${boards.number}+1)}">다음 페이지</a></li>
+    </th:block>
+
+
+</ul>
+
+<div class="jumbotron text-center" style="margin-bottom:0" th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
